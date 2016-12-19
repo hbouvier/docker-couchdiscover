@@ -1,6 +1,6 @@
 NS = vp
 NAME = couchdiscover
-VERSION = 0.2.2
+VERSION = 0.2.3
 LOCAL_TAG = $(NS)/$(NAME):$(VERSION)
 
 REGISTRY = callforamerica

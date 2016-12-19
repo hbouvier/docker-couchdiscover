@@ -2,29 +2,20 @@ FROM python:3-alpine
 
 MAINTAINER joe <joeblack949@gmail.com>
 
+ENV     COUCHDISCOVER_VERSION 0.2.3
+
 LABEL   lang.python.version=3
 LABEL   app.name=couchdiscover \
-        app.version=0.2.2
+        app.version=${COUCHDISCOVER_VERSION}
 
 COPY    dumb-init /
 
-# VOLUME    ["/app/couchdiscover"]
-
-# COPY    couchdiscover /app/
-
 # RUN     apk --update add git
-# RUN     pip3 install --no-cache-dir -r /app/requirements.txt
-# RUN     cd /app && python3 setup.py install
-RUN     pip3 install couchdiscover
+# RUN     pip3 install git+https://github.com/joeblackwaslike/couchdiscover --process-dependency-links
+RUN     pip3 install couchdiscover --process-dependency-links
 
 ENV     ENVIRONMENT=production
-ENV     LOG_LEVEL=debug
+ENV     LOG_LEVEL=DEBUG
 
 ENTRYPOINT  ["/dumb-init", "--"]
 CMD         ["couchdiscover"]
-
-# bug with docker hub automated builds when interating with root directory
-# ref: https://forums.docker.com/t/automated-docker-build-fails/22831/27
-# COPY    entrypoint /entrypoint
-# COPY    entrypoint /tmp/
-# RUN     mv /tmp/entrypoint /
